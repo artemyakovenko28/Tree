@@ -111,4 +111,10 @@ public interface Tree<T> extends Iterable<T> {
     boolean equals(Object o);
 
     int hashCode();
+
+    String toString(Item<T> parent);
+
+    String toString(IterationStrategy strategy);
+
+    String toString(IterationStrategy strategy, Item<T> parent);
 }

@@ -157,4 +157,13 @@ class GeneralTreeSpecification extends Specification {
             }
         }
     }
+
+    def "toString() method of tree works correctly"() {
+        expect:
+        "[h, d, a, b, c, e, g, f]" == tree.toString()
+        "[a, b, c, d, e, f, g, h]" == tree.toString(Tree.IterationStrategy.DEPTH_FIRST_POST)
+        "[h, d, e, g, a, b, c, f]" == tree.toString(Tree.IterationStrategy.BREATH_FIRST)
+        "[d, a, b, c]" == tree.toString(d)
+        "[a, b, c, d]" == tree.toString(Tree.IterationStrategy.DEPTH_FIRST_POST, d)
+    }
 }

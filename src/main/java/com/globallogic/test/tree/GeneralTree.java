@@ -32,7 +32,7 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public int size() {
+        int size() {
             int result = 0;
             Iterator<T> it = GeneralTree.this.iterator(defaultIterationStrategy, this);
             while (it.hasNext()) {
@@ -43,7 +43,7 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public boolean contains(T value) {
+        boolean contains(T value) {
             boolean result = false;
             Iterator<T> it = GeneralTree.this.iterator(defaultIterationStrategy, this);
             while (it.hasNext()) {
@@ -57,7 +57,7 @@ public class GeneralTree<T> implements Tree<T> {
 
         @SuppressWarnings({"unchecked", "Duplicates"})
         @Override
-        public T[] toArray(T[] typeRef, IterationStrategy strategy) {
+        T[] toArray(T[] typeRef, IterationStrategy strategy) {
             final T[] result = (T[]) Array.newInstance(typeRef.getClass().getComponentType(), GeneralTree.this.size);
             int index = 0;
 
@@ -69,7 +69,7 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public Object[] toArray(IterationStrategy strategy) {
+        Object[] toArray(IterationStrategy strategy) {
             Object[] result = new Object[GeneralTree.this.size];
             int index = 0;
 
@@ -81,51 +81,51 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public void clear() {
+        void clear() {
             children.clear();
             value = null;
             parent = null;
         }
 
         @Override
-        public T getValue() {
+        T getValue() {
             return value;
         }
 
         @Override
-        public Item<T> setValue(T value) {
+        Item<T> setValue(T value) {
             this.value = value;
             return this;
         }
 
         @Override
-        public boolean hasChildren() {
+        boolean hasChildren() {
             return !children.isEmpty();
         }
 
         @Override
-        public boolean isRoot() {
+        boolean isRoot() {
             return parent == null;
         }
 
         @Override
-        public Item<T> getParent() {
+        Item<T> getParent() {
             return parent;
         }
 
         @Override
-        public Item<T> setParent(Item<T> parent) {
+        Item<T> setParent(Item<T> parent) {
             this.parent = parent;
             return parent;
         }
 
         @Override
-        public Collection<Item<T>> getChildren() {
+        Collection<Item<T>> getChildren() {
             return children;
         }
 
         @Override
-        public Item<T> findChild(T value) {
+        Item<T> findChild(T value) {
             Item<T> result = null;
 
             AbstractTreeIterator it = (AbstractTreeIterator) GeneralTree.this.iterator(defaultIterationStrategy, this);
@@ -142,14 +142,14 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public Item<T> addChild(Item<T> item) {
+        Item<T> addChild(Item<T> item) {
             children.add(item);
             item.setParent(this);
             return item;
         }
 
         @Override
-        public Item<T> removeChild(Item<T> item) {
+        Item<T> removeChild(Item<T> item) {
             if (item != null && children.remove(item)) {
                 item.setParent(null);
                 return item;
@@ -158,17 +158,17 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public Item<T> addChild(T value) {
+        Item<T> addChild(T value) {
             return addChild(new Node(value));
         }
 
         @Override
-        public Item<T> removeChild(T value) {
+        Item<T> removeChild(T value) {
             return removeChild(findChild(value));
         }
 
         @Override
-        public boolean isParentOf(Item<T> item) {
+        boolean isParentOf(Item<T> item) {
             if (item == null) {
                 return false;
             }
@@ -176,7 +176,7 @@ public class GeneralTree<T> implements Tree<T> {
         }
 
         @Override
-        public boolean isChildOf(Item<T> item) {
+        boolean isChildOf(Item<T> item) {
             if (item == null) {
                 return false;
             }
@@ -529,5 +529,36 @@ public class GeneralTree<T> implements Tree<T> {
             }
         }
         return !(it1.hasNext() || it2.hasNext());
+    }
+
+    @Override
+    public String toString() {
+        return toString(defaultIterationStrategy, root);
+    }
+
+    public String toString(Item<T> parent) {
+        return toString(defaultIterationStrategy, parent);
+    }
+
+    public String toString(IterationStrategy strategy) {
+        return toString(strategy, root);
+    }
+
+    public String toString(IterationStrategy strategy, Item<T> parent) {
+        Iterator<T> it = iterator(strategy, parent);
+        if (!it.hasNext()) {
+            return "[]";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (; ; ) {
+            T e = it.next();
+            sb.append(e == this ? "(this Tree)" : e);
+            if (!it.hasNext()) {
+                return sb.append(']').toString();
+            }
+            sb.append(',').append(' ');
+        }
     }
 }
