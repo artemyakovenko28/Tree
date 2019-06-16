@@ -1,5 +1,5 @@
 # Tree
-Tree implementation on Java
+Tree implementation on Java<br/>
 This repository contains tree implementation on Java as generic container for items of arbitrary structure.
 
 ## Features
@@ -20,7 +20,7 @@ To build an executable jar, run `gradlew clean build` from the project root<br/>
 ## Testing info
 Test info
 Implementation is covered by unit tests for structural modifications 
-and `Tree` interface operations
-Used groovy SPOCK framework for this purpose
-To ensure everything works correctly run `gradlew clean test`
+and `Tree` interface operations<br/>
+Used groovy SPOCK framework for this purpose<br/>
+To ensure everything works correctly run `gradlew clean test` form the project root
 
