@@ -10,6 +10,9 @@ This repository contains tree implementation on Java as generic container for it
 3. search for items based on filters
 4. iterating over the tree according to different iteration strategies. See more about iteration strategies 
 <a href="https://en.wikipedia.org/wiki/Tree_traversal">here</a>
+5. used patterns:
+    - iterator
+    - template method
 
 ## Building info
 Open bash shell <br/>
